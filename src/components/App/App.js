@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Route, Switch, Redirect, useHistory, BrowserRouter } from 'react-router-dom';
+import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import SavedNews from '../SavedNews/SavedNews.js';
 import Main from '../Main/Main.js';
 import './App.css';
