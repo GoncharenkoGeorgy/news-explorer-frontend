@@ -1,0 +1,7 @@
+.main {
+  position: relative;
+  background-image: url(../../images/head.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top;
+}

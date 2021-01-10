@@ -1,0 +1,45 @@
+.header {
+  padding: 0 104px;
+  border-bottom: 1px solid #d1d2d6;
+}
+
+.header__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__title {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 24px;
+  cursor: pointer;
+  color: #1A1B22;
+}
+
+.header__title_light {
+  color: #FFFFFF;
+  z-index: 3;
+}
+
+@media screen and (max-width: 1030px) {
+  .header {
+    padding: 0 40px;
+  }
+
+  .header__container {
+    height: 66px;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .header {
+    padding: 0 18px;
+  }
+
+  .header__title {
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
