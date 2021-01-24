@@ -44,7 +44,7 @@
 @media screen and (max-width: 1030px) {
   .about {
     max-width: 688px;
-    margin: 40px auto;
+    margin: 140px auto 40px;
     padding: 0 40px;
   }
 

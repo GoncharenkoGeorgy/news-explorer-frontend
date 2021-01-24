@@ -1,16 +1,36 @@
+import React from 'react';
+import Input from '../Input/Input';
+import { useFormWithValidation } from '../../utils/ValidationForm';
 import './SearchForm.css';
 
-const SearchForm = () => {
+const SearchForm = (props) => {
+  const { handleSearch, isLoading } = props;
+
+  const searchField = useFormWithValidation();
+
+  function handleSubmit(evt) {
+    const { value, setErrorMessage } = searchField;
+    evt.preventDefault();
+    handleSearch(value, setErrorMessage);
+  };
 
   return (
-    <section className='search'>
+    <div className='search'>
       <h1 className='search__title'>Что творится в мире?</h1>
       <p className='search__info'>Находите самые свежие статьи на любую тему и сохраняйте в своём личном кабинете.</p>
-      <form className='search__form'>
-        <input className='search__input' placeholder='Введите тему новости'></input>
-        <button className='search__button'>Искать</button>
+      <form onSubmit={handleSubmit} className='search__form' noValidate>
+        <Input
+          inputFieldClassName='search__input'
+          placeholder='Введите тему новости'
+          name='search'
+          type='text'
+          {...searchField}
+          disabled={isLoading} />
+        <button
+          className='search__button'
+        >Искать</button>
       </form>
-    </section>
+    </div>
   );
 }
 

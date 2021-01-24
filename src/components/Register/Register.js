@@ -1,76 +1,76 @@
 import React from 'react';
-import './Register.css';
+import PopupWithForm from '../PopupWithForm/PopupWithForm';
+import Input from '../Input/Input';
+import { useFormWithValidation } from '../../utils/ValidationForm';
 
 const Register = (props) => {
-  const { isPopupOpen, toggleForm, setIsLoginOpen } = props;
+  
+  const { isOpen, onClose, onChange, onRegister, error, disabled } = props;
 
-  React.useEffect(() => {
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && isPopupOpen) {
-        toggleForm();
-      }
-    });
-  }, [toggleForm, isPopupOpen]);
+  const emailField = useFormWithValidation();
+  const passwordField = useFormWithValidation();
+  const nameField = useFormWithValidation();
 
-  function handleClose(e) {
-    if (e.target.classList.contains('popup')) {
-      toggleForm();
-    }
-  }
+  function handleClose() {
+    emailField.setErrorMessage('');
+    emailField.setValue('');
+    emailField.setIsValid(false);
+    passwordField.setErrorMessage('');
+    passwordField.setValue('');
+    passwordField.setIsValid(false);
+    nameField.setErrorMessage('');
+    nameField.setValue('');
+    nameField.setIsValid(false);
+    onClose();
+  };
 
-  const handleLink = () => {
-    setIsLoginOpen(true);
-    toggleForm();
+  function handleRegister(evt) {
+    evt.preventDefault();
+    onRegister(emailField.value, passwordField.value, nameField.value);
   };
 
   return (
-    <div onClick={handleClose}
-      className={`popup popup_login ${isPopupOpen ? '' : 'popup_hidden'}`}>
-      <form className={'popup__container popup__container_login'} >
-        <button onClick={toggleForm} className={'popup__close popup__close_login'} type='button' />
-        <h2 className={'popup__title'}>Регистрация</h2>
-        <>
-          <>
-            <div className="input__container">
-              <span className='input__type'>Email</span>
-              <input
-                type='email'
-                placeholder='Введите почту'
-                required
-                className="popup__input"
-              />
-            </div>
-            <div className="input__container">
-              <span className='input__type'>Пароль</span>
-              <input
-                type='password'
-                placeholder='Введите пароль'
-                required
-                className="popup__input"
-              />
-            </div>
-            <div className="input__container">
-              <span className='input__type'>Имя</span>
-              <input
-                type='text'
-                placeholder='Введите свое имя'
-                required
-                className="popup__input"
-              />
-            </div>
-          </>
-          <button
-            type="submit"
-            className='popup__button'
-          >
-            Зарегистрироваться
-          </button>
-        </>
-        <span className='popup__another-login'>Или
-          <span onClick={handleLink} className='popup__link'> Войти</span>
-        </span>
-      </form>
-    </div >
+    <PopupWithForm
+      name='register'
+      isOpen={isOpen}
+      onClose={handleClose}
+      onChange={onChange}
+      isFormValid={emailField.isValid && passwordField.isValid && nameField.isValid}
+      onSubmit={handleRegister}
+      error={error}
+      disabled={disabled}
+      buttonText='Зарегистрироваться'>
+      <h2 className={'popup__title'}>Регистрация</h2>
+      <span className='input__type'>Email</span>
+      <Input
+        type='email'
+        minLength='6'
+        maxLength='20'
+        required={true}
+        autoComplete='email'
+        {...emailField}
+        inputFieldClassName='popup__input'
+        placeholder='Введите почту' />
+      <span className='input__type'>Пароль</span>
+      <Input
+        type='password'
+        minLength='8'
+        maxLength='20'
+        required={true}
+        autoComplete='password'
+        {...passwordField}
+        inputFieldClassName='popup__input'
+        placeholder='Введите пароль' />
+      <span className='input__type'>Имя</span>
+      <Input
+        type='text'
+        minLength='2'
+        maxLength='20'
+        required={true}
+        {...nameField}
+        inputFieldClassName='popup__input'
+        placeholder='Введите имя' />
+    </PopupWithForm>
   );
 };
 

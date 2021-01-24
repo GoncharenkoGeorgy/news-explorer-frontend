@@ -1,4 +1,6 @@
 .header {
+  position: relative;
+  z-index: 2;
   padding: 0 104px;
   border-bottom: 1px solid #d1d2d6;
 }
@@ -10,17 +12,25 @@
 }
 
 .header__title {
+  font-family: Roboto Slab;
   font-style: normal;
   font-weight: bold;
   font-size: 20px;
   line-height: 24px;
-  cursor: pointer;
   color: #1A1B22;
 }
 
 .header__title_light {
   color: #FFFFFF;
   z-index: 3;
+}
+
+.header__title_black {
+  color: #111;
+}
+
+.header__title:hover {
+  opacity: .7;
 }
 
 @media screen and (max-width: 1030px) {

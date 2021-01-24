@@ -9,6 +9,10 @@
   z-index: 2;
 }
 
+.popup__subtitle {
+  margin: auto;
+}
+
 .popup_hidden {
   visibility: hidden;
 }
@@ -53,7 +57,6 @@
 .input__container {
   display: flex;
   flex-direction: column;
-  margin-bottom: 16px;
 }
 
 .popup__title {
@@ -69,8 +72,8 @@
 
 .input__type {
   margin: 0;
-  margin-bottom: 9px;
-  font-family: 'Inter', Arial, sans-serif;
+  margin-top: 25px;
+  font-family: 'Inter';
   font-weight: 400;
   font-style: normal;
   font-size: 12px;
@@ -82,7 +85,7 @@
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   padding-bottom: 10px;
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: 'Inter';
   font-weight: 400;
   font-style: normal;
   font-size: 14px;
@@ -90,12 +93,12 @@
 }
 
 .popup__button {
-  margin-top: 23px;
+  margin-top: 40px;
   margin-bottom: 16px;
   height: 64px;
   border: none;
   box-shadow: 0px 5px 15px rgba(14, 26, 57, 0.2);
-  background: #e6e8eb;
+  background-color: #e6e8eb;
   border-radius: 100px;
   font-weight: 500;
   font-style: normal;
@@ -105,14 +108,31 @@
   color: #b6bcbf;
 }
 
+.popup__button_two {
+  margin-top: 40px;
+  margin-bottom: 16px;
+  height: 64px;
+  border: none;
+  box-shadow: 0px 5px 15px rgba(14, 26, 57, 0.2);
+  border-radius: 100px;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 18px;
+  line-height: 24px;
+  text-align: center;
+  background-color: #2f71e5;
+  color: white;
+  cursor: pointer;
+}
+
 .popup__button_active {
-  background: #2f71e5;
+  background-color: #2f71e5;
   color: white;
 }
 
 .popup__another-login {
   margin: 0;
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: 'Inter';
   font-weight: 400;
   font-style: normal;
   font-size: 14px;
@@ -122,7 +142,7 @@
 }
 
 .popup__link {
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: 'Inter';
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
@@ -130,6 +150,21 @@
   color: #2f71e5;
   text-decoration: none;
   cursor: pointer;
+}
+
+.popup__input_text_error {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
+  color: #ff0000;
+}
+
+@media screen and (max-width: 600px) {
+  .input__container:last-of-type {
+    margin-bottom: 8px;
+  }
 }
 
 @media screen and (max-width: 510px) {
@@ -153,16 +188,12 @@
     line-height: 28px;
   }
 
-  .input__box {
-    margin: 0 16px 15px;
-  }
-
-  .input__box:last-of-type {
-    margin-bottom: 8px;
+  .popup__subtitle {
+    margin-top: 0;
   }
 
   .popup__button {
-    margin: 16px;
+    margin-top: 23px;
   }
 }
 

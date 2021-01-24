@@ -1,30 +1,31 @@
 import React from 'react';
-import Navigation from '../Navigation/Navigation.js';
+import Navigation from '../Navigation/Navigation';
+import { useLocation } from 'react-router-dom';
 import './Header.css';
 
 const Header = (props) => {
-
-  const { togglePage, toggleForm, isSaved, name, isPopupOpen } = props;
-
+  
+  const { loggedIn, handleLogout, openLogin } = props;
+  
   const [isMenuPopupOpen, setIsMenuPopupOpen] = React.useState(false);
-
+  
   const handleMenu = () => {
     setIsMenuPopupOpen(!isMenuPopupOpen)
   }
 
-  return (
+  const { pathname } = useLocation();
 
-    <header className='header'>
+  return (
+    <header className={`header ${pathname === "/" ? 'header_image' : ''}`}>
       <div className='header__container'>
-      <h2 className={`header__title ${togglePage ? 'header__title_light' : ''} ${isMenuPopupOpen ? 'header__title_light' : ''}`}>NewsExplorer</h2>
+        <h2 className={`header__title ${isMenuPopupOpen || pathname === '/' ? 'header__title_light' : 'header__title_black'}`}>NewsExplorer</h2>
         <Navigation
-          togglePage={togglePage}
-          toggleForm={toggleForm}
-          isSaved={isSaved}
-          name={name}
-          isPopupOpen={isPopupOpen} 
-          handleMenu={handleMenu}
+          loggedIn={loggedIn}
+          pathname={pathname}
           isMenuPopupOpen={isMenuPopupOpen}
+          handleLogout={handleLogout}
+          onClick={openLogin}
+          handleMenu={handleMenu}
         />
       </div>
     </header>
