@@ -1,7 +1,7 @@
 import React from 'react';
 import './NewsCardList.css';
 import NewsCard from '../NewsCard/NewsCard';
-import ZeroNews from '../ZeroNews/ZeroNews'
+import ZeroNews from '../ZeroNews/ZeroNews';
 
 function NewsCardList(props) {
   const {
