@@ -95,7 +95,8 @@ const App = () => {
           .catch((err) => setError(err.message));
         setLoggedIn(true);
         setIsLoginPopupOpen(false);
-        getSavedNews();
+        if (savedNews.length > 0){
+        getSavedNews();}
       })
       .catch((err) => setError(err.message))
       .finally(() => setDisabled(false));
