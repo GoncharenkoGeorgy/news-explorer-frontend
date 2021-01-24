@@ -1,5 +1,5 @@
-export const BASE_URL = 'https://api.george.students.nomoredomains.monster';
-// export const BASE_URL = 'http://localhost:3000';
+// export const BASE_URL = 'https://api.george.students.nomoredomains.monster';
+export const BASE_URL = 'http://localhost:3000';
 
 export const authorize = (email, password) => {
   return fetch(`${BASE_URL}/signin`, {

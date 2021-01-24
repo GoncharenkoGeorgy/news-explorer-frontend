@@ -10,7 +10,7 @@ const Navigation = (props) => {
     isMenuPopupOpen,
     pathname,
     handleLogout,
-    onClick,
+    openLogin,
     handleMenu
   } = props;
 
@@ -18,7 +18,7 @@ const Navigation = (props) => {
 
   return (
     <>
-      <div onClick={handleMenu} className={`navigation__button ${isMenuPopupOpen ? 'change' : ''}`}>
+      <div onClick={handleMenu} className={`navigation__button`}>
         <span className={`navigation__button-line ${pathname === '/' ? '' : 'navigation__button-line_black'} ${isMenuPopupOpen ? 'navigation__button-line_esc navigation__button-line_white' : ''}`}></span>
         <span className={`navigation__button-line ${pathname === '/' ? '' : 'navigation__button-line_black'} ${isMenuPopupOpen ? 'navigation__button-line_esc navigation__button-line_white' : ''}`}></span>
       </div>
@@ -28,22 +28,24 @@ const Navigation = (props) => {
             ? <NavLink to='/' className={isMenuPopupOpen ? 'navigation__link navigation__light' : 'navigation__link navigation__light navigation__link_active_light-theme'}>Главная</NavLink>
             : <NavLink to='/' className='navigation__link navigation__black'>Главная</NavLink>
           }
-          {((pathname === '/') || isMenuPopupOpen)
-            ? <NavLink to='/saved-news' className='navigation__link navigation__light'>Сохраненные статьи</NavLink>
-            : <NavLink to='/saved-news' className='navigation__link navigation__black navigation__link_active'>Сохраненные статьи</NavLink>
+          {(loggedIn)
+            ? (pathname === '/')
+              ? <NavLink to='/saved-news' className={`${isMenuPopupOpen ? 'navigation__link navigation__light' : 'navigation__link navigation__light'}`}>Сохраненные статьи</NavLink>
+              : <NavLink to='/saved-news' className={`${isMenuPopupOpen ? 'navigation__link navigation__light' : 'navigation__link navigation__black navigation__link_active'}`}>Сохраненные статьи</NavLink>
+            : (pathname === '/')
+              ? ''
+              : <NavLink to='/saved-news' className={`${isMenuPopupOpen ? 'navigation__link navigation__light' : 'navigation__link navigation__black navigation__link_active'}`}>Сохраненные статьи</NavLink>
           }
-          <div
-            onClick={loggedIn ? handleLogout : onClick}
-            className={`navigation__border ${pathname === '/' ? 'navigation__light' : 'navigation__border_dark'} ${isMenuPopupOpen ? 'navigation__border_light' : ''} `}
-          >
-            <div onClick={handleMenu} className={`navigation__border-link ${(isMenuPopupOpen || pathname === '/') ? 'navigation__light' : ''}`} >
-              {loggedIn ? currentUser.name : 'Авторизоваться'}
-            </div>
-            {
-              loggedIn ?
-                <span className={`navigation__logout ${pathname === '/' ? 'navigation__logout_light' : 'navigation__logout_dark'} ${isMenuPopupOpen ? 'navigation__logout_light' : 'navigation__logout_dark'}`} /> : ''
-            }
-          </div>
+          {loggedIn
+            ? <div onClick={handleLogout}
+              className={`navigation__border ${pathname === '/' ? 'navigation__light' : 'navigation__border_dark'} ${isMenuPopupOpen ? 'navigation__border_light' : ''} `}>
+                <span className={`navigation__border-link ${(isMenuPopupOpen || pathname === '/') ? 'navigation__light' : ''}`} >{currentUser.name}</span>
+                <span className={`navigation__logout ${pathname === '/' ? 'navigation__logout_light' : 'navigation__logout_dark'} ${isMenuPopupOpen ? 'navigation__logout_light' : 'navigation__logout_dark'}`} />
+              </div>
+            : <div onClick={openLogin} className={`navigation__border ${pathname === '/' ? 'navigation__light' : 'navigation__border_dark'} ${isMenuPopupOpen ? 'navigation__border_light' : ''} `}>
+                <span className={`navigation__border-link ${(isMenuPopupOpen || pathname === '/') ? 'navigation__light' : ''}`} >Авторизоваться</span>
+              </div>
+          }
         </div>
       </nav>
     </ >

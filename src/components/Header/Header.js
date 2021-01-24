@@ -24,7 +24,7 @@ const Header = (props) => {
           pathname={pathname}
           isMenuPopupOpen={isMenuPopupOpen}
           handleLogout={handleLogout}
-          onClick={openLogin}
+          openLogin={openLogin}
           handleMenu={handleMenu}
         />
       </div>
