@@ -1,19 +1,21 @@
-import React from 'react';
-import './SavedNews.css';
-import Header from '../Header/Header';
+import React, { useContext } from 'react';
 import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader';
 import NewsCardList from '../NewsCardList/NewsCardList';
-import Footer from '../Footer/Footer';
+import { NewsContext } from '../../contexts/NewsContext';
 
-const SavedNews = () => {
+const SavedNews = (props) => {
+  const { loggedIn, onCardClick } = props;
+
+  const { savedNews } = useContext(NewsContext);
 
   return (
     <>
-      <Header isSaved={true} name='Георгий' />
-      <SavedNewsHeader />
+      <SavedNewsHeader loggedIn={loggedIn} />
       <NewsCardList pathname='/saved-news'
+        loggedIn={loggedIn}
+        newsToRender={savedNews}
+        onCardClick={onCardClick}
       />
-      <Footer />
     </>
   );
 };

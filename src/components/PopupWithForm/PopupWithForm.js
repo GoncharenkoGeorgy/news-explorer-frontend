@@ -2,37 +2,43 @@ import React from 'react';
 import './PopupWithForm.css';
 
 const PopupWithForm = (props) => {
-  const { isPopupOpen, toggleForm, setIsLoginOpen } = props;
-
+  const { name, isOpen, children, onClose, onChange, onSubmit, buttonText, isFormValid } = props;
+  
   React.useEffect(() => {
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && isPopupOpen) {
-        toggleForm();
+      if (e.key === 'Escape' && isOpen) {
+        onClose();
       }
     });
-  }, [toggleForm, isPopupOpen]);
+  }, [onClose, isOpen]);
 
   function handleClose(e) {
     if (e.target.classList.contains('popup')) {
-      toggleForm();
+      onClose();
     }
   }
-
-  const handleLink = () => {
-    setIsLoginOpen(true);
-    toggleForm();
-  };
-
+  
   return (
-    <div onClick={handleClose}
-      className={`popup popup_login ${isPopupOpen ? '' : 'popup_hidden'}`}>
-      <form className={'popup__container popup__container_login'} >
-        <button onClick={toggleForm} className={'popup__close popup__close_login'} type='button' />
-        <h2 className={'popup__title'}>Пользователь успешно зарегистрирован!</h2>
-        <span onClick={handleLink} className='popup__link'>Войти</span>
+    <section onClick={handleClose}
+      className={`popup popup_${name} ${isOpen ? '' : 'popup_hidden'}`}>
+      <form onSubmit={onSubmit} name={name} className={'popup__container popup__container_login'}>
+        {children}
+        <button onClick={onClose} className={'popup__close popup__close_login'} type='button' />
+        {name !== 'tooltip' &&
+          <>
+            <button
+              className={`${isFormValid ? 'popup__button_two' : 'popup__button'}`}
+              onClick={onSubmit}
+              disabled={!isFormValid}>
+              {buttonText}
+            </button>
+          </>
+        }
+        <span className='popup__subtitle'>{name !== 'tooltip' && 'или '}
+          <span className='popup__link' onClick={onChange}>
+            {name === 'login' ? 'Зарегистрироваться' : 'Войти'}</span></span>
       </form>
-
-    </div >
+    </section >
   );
 };
 

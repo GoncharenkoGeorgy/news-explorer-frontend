@@ -1,69 +1,63 @@
 import React from 'react';
-import './Login.css';
-import { NavLink } from 'react-router-dom';
+import PopupWithForm from '../PopupWithForm/PopupWithForm';
+import Input from '../Input/Input';
+import { useFormWithValidation } from '../../utils/ValidationForm';
 
 const Login = (props) => {
   
-  const { isPopupOpen, toggleForm, setIsRegisterOpen } = props;
+  const { isOpen, onClose, onChange, onLogin, error, disabled } = props;
 
-  React.useEffect(() => {
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && isPopupOpen) {
-        toggleForm();
-      }
-    });
-  }, [toggleForm, isPopupOpen]);
+  const emailField = useFormWithValidation();
+  const passwordField = useFormWithValidation();
 
-  function handleClose(e) {
-    if (e.target.classList.contains('popup')) {
-      toggleForm();
-    }
-  }
+  function handleClose() {
+    emailField.setErrorMessage('');
+    emailField.setValue('');
+    passwordField.setErrorMessage('');
+    passwordField.setValue('');
+    emailField.setIsValid(false);
+    passwordField.setIsValid(false);
+    onClose();
+  };
 
-  const handleLink = () => {
-    setIsRegisterOpen(true);
-    toggleForm();
+  function handleLogin(evt) {
+    evt.preventDefault();
+    onLogin(emailField.value, passwordField.value);
   };
 
   return (
-    <div onClick={handleClose}
-      className={`popup popup_login ${isPopupOpen ? '' : 'popup_hidden'}`}>
-      <form className={'popup__container popup__container_login'} >
-        <button onClick={toggleForm} className={'popup__close popup__close_login'} type='button' />
-        <h2 className={'popup__title'}>Вход</h2>
-        <>
-          <>
-            <div className="input__container">
-              <span className='input__type'>Email</span>
-              <input
-                type='email'
-                placeholder='Введите почту'
-                required
-                className="popup__input"
-              />
-            </div>
-            <div className="input__container">
-              <span className='input__type'>Пароль</span>
-              <input
-                type='password'
-                placeholder='Введите пароль'
-                required
-                className="popup__input"
-              />
-            </div>
-          </>
-          <button
-            type="submit"
-            className='popup__button'
-          >
-            Войти
-          </button>
-        </>
-        <span className='popup__another-login'>Или
-          <span onClick={handleLink} className='popup__link'> Зарегистрироваться</span>
-        </span>
-      </form>
-    </div >
+    <PopupWithForm
+      name='login'
+      isOpen={isOpen}
+      onClose={handleClose}
+      onChange={onChange}
+      isFormValid={emailField.isValid && passwordField.isValid}
+      onSubmit={handleLogin}
+      error={error}
+      disabled={disabled}
+      buttonText='Войти'>
+      <h2 className={'popup__title'}>Вход</h2>
+      <span className='input__type'>Email</span>
+      <Input
+        type='email'
+        minLength='6'
+        maxLength='20'
+        required={true}
+        autoComplete='email'
+        {...emailField}
+        inputFieldClassName='popup__input'
+        placeholder='Введите почту' />
+      <span className='input__type'>Пароль</span>
+      <Input
+        type='password'
+        minLength='8'
+        maxLength='20'
+        required={true}
+        autoComplete='password'
+        {...passwordField}
+        inputFieldClassName='popup__input'
+        placeholder='Введите пароль' />
+    </PopupWithForm>
   );
 };
 
