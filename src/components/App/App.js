@@ -95,8 +95,9 @@ const App = () => {
           .catch((err) => setError(err.message));
         setLoggedIn(true);
         setIsLoginPopupOpen(false);
-        if (savedNews.length > 0){
-        getSavedNews();}
+        if (savedNews.length > 0) {
+          getSavedNews();
+        }
       })
       .catch((err) => setError(err.message))
       .finally(() => setDisabled(false));
@@ -107,7 +108,7 @@ const App = () => {
       setIsLoginPopupOpen(true);
     } else if (loggedIn && location.pathname === '/saved-news') {
       history.push('/saved-news')
-    } 
+    }
   }, [loggedIn, location.pathname, history]);
 
   React.useEffect(() => {
@@ -117,7 +118,9 @@ const App = () => {
         .then((res) => {
           setLoggedIn(true);
           setCurrentUser(res.data);
-          getSavedNews();
+          if (savedNews.length > 0) {
+            getSavedNews();
+          }
         })
         .catch((err) => console.log(err));
     }
